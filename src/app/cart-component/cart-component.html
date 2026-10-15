@@ -1,0 +1,27 @@
+<h2>პროდუქტები</h2>
+<ul>
+  @for (p of svc.products(); track p.id) {
+    <li>
+      {{ p.name }} -- {{ p.price | price }}
+      <button (click)="svc.add(p)">დამატება</button>
+    </li>
+  }
+</ul>
+
+<h2>კალათა</h2>
+
+@if (svc.items().length === 0) {
+  <p>პროდუქტები ცარიელია</p>
+} @else {
+  <ul>
+    @for (item of svc.items(); track $index) {
+      <li>
+        {{ item.name }} -- {{ item.price | price }}
+        <button (click)="svc.remove(item.id)">წაშლა</button>
+      </li>
+    }
+  </ul>
+
+  <p>სულ ფასი: {{ svc.total() | price }}</p>
+  <button (click)="svc.clear()">ყველაფრის გასუფთავება</button>
+}
